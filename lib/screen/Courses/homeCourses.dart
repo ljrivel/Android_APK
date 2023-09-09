@@ -28,7 +28,6 @@ class _HomeScreenCoursesState extends State<HomeScreenCourses> {
         'https://api-android-rivel.onrender.com/getCourses'; // Reemplaza con la URL de tu API
     final response = await http.get(Uri.parse(apiUrl));
     if (response.statusCode == 200) {
-      print(response.body);
       final List<dynamic> data = json.decode(response.body);
       setState(() {
         CoursesData = data.cast<Map<String, dynamic>>();

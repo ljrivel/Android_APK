@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_v1/screen/students/InsertStudents.dart';
+import 'package:flutter_v1/screen/students/DeleteStudents.dart';
+import 'package:flutter_v1/screen/students/EditStudents.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreenStudents extends StatefulWidget {
@@ -70,13 +72,18 @@ class _HomeScreenStudentsState extends State<HomeScreenStudents> {
                 Icons.person_add_alt_1,
               ),
               title: const Text('Insertar'),
-              onTap: () {
-                // Acción al seleccionar Inicio
+              onTap: () async {
                 Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const InsertStudents()));
+                final result =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const InsertStudents(),
+                ));
+
+                // Verificar si se debe recargar los datos
+                if (result == true) {
+                  await fetchStudentsData(); // Recargar los datos desde el API
+                }
+                // Acción al seleccionar Inicio
               },
             ),
             ListTile(
@@ -84,9 +91,18 @@ class _HomeScreenStudentsState extends State<HomeScreenStudents> {
                 Icons.person_remove,
               ),
               title: const Text('Eliminar'),
-              onTap: () {
+              onTap: () async {
                 // Acción al seleccionar Configuración
                 Navigator.pop(context);
+                final result =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DeleteStudents(),
+                ));
+
+                // Verificar si se debe recargar los datos
+                if (result == true) {
+                  await fetchStudentsData(); // Recargar los datos desde el API
+                }
               },
             ),
             ListTile(
@@ -94,9 +110,18 @@ class _HomeScreenStudentsState extends State<HomeScreenStudents> {
                 Icons.manage_accounts,
               ),
               title: const Text('Modificar'),
-              onTap: () {
+              onTap: () async {
                 // Acción al seleccionar Configuración
                 Navigator.pop(context);
+                final result =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => EditStudents(),
+                ));
+
+                // Verificar si se debe recargar los datos
+                if (result == true) {
+                  await fetchStudentsData(); // Recargar los datos desde el API
+                }
               },
             ),
           ],
