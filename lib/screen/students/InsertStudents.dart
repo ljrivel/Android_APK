@@ -1,7 +1,8 @@
+// ignore_for_file: file_names, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
-import 'dart:convert';
 
 class InsertStudents extends StatefulWidget {
   const InsertStudents({Key? key}) : super(key: key);
@@ -64,7 +65,6 @@ class _InsertStudents extends State<InsertStudents> {
             // Cerrar la pantalla actual y volver a la anterior
             Navigator.of(context).pop(true);
           } else {
-            print(response); // Si la solicitud no es exitosa
             Fluttertoast.showToast(
               msg: 'Error al insertar estudiante',
               toastLength: Toast.LENGTH_SHORT,
@@ -74,7 +74,6 @@ class _InsertStudents extends State<InsertStudents> {
             );
           }
         } catch (error) {
-          print('Error: $error');
           Fluttertoast.showToast(
             msg: 'Error al conectar con el servidor',
             toastLength: Toast.LENGTH_SHORT,

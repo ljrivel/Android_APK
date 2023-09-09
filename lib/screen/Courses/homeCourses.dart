@@ -1,5 +1,10 @@
+// ignore_for_file: file_names, non_constant_identifier_names
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_v1/screen/Courses/DeleteCourses.dart';
+import 'package:flutter_v1/screen/Courses/EditCourses.dart';
+import 'package:flutter_v1/screen/Courses/InsertCourses.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreenCourses extends StatefulWidget {
@@ -50,7 +55,8 @@ class _HomeScreenCoursesState extends State<HomeScreenCourses> {
       appBar: AppBar(title: const Text('Courses'), centerTitle: true),
       endDrawer: Drawer(
         child: ListView(
-          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(16.0),
           children: <Widget>[
             const DrawerHeader(
               decoration: BoxDecoration(
@@ -69,9 +75,18 @@ class _HomeScreenCoursesState extends State<HomeScreenCourses> {
                 Icons.bookmark_add,
               ),
               title: const Text('Insertar'),
-              onTap: () {
-                // Acción al seleccionar Inicio
+              onTap: () async {
                 Navigator.pop(context);
+                final result =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const InsertCourses(),
+                ));
+
+                // Verificar si se debe recargar los datos
+                if (result == true) {
+                  await fetchCoursesData(); // Recargar los datos desde el API
+                }
+                // Acción al seleccionar Inicio
               },
             ),
             ListTile(
@@ -79,17 +94,34 @@ class _HomeScreenCoursesState extends State<HomeScreenCourses> {
                 Icons.bookmark_remove,
               ),
               title: const Text('Eliminar'),
-              onTap: () {
-                // Acción al seleccionar Configuración
+              onTap: () async {
                 Navigator.pop(context);
+                final result =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DeleteCourses(),
+                ));
+
+                // Verificar si se debe recargar los datos
+                if (result == true) {
+                  await fetchCoursesData(); // Recargar los datos desde el API
+                }
+                // Acción al seleccionar Inicio
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Modificar'),
-              onTap: () {
-                // Acción al seleccionar Configuración
+              onTap: () async {
                 Navigator.pop(context);
+                final result =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const EditCourses(),
+                ));
+
+                // Verificar si se debe recargar los datos
+                if (result == true) {
+                  await fetchCoursesData(); // Recargar los datos desde el API
+                }
               },
             ),
           ],
@@ -104,7 +136,7 @@ class _HomeScreenCoursesState extends State<HomeScreenCourses> {
           child: DataTable(
             columns: const <DataColumn>[
               DataColumn(
-                label: Text('id'),
+                label: Text('Codigo'),
                 numeric: false,
               ),
               DataColumn(
@@ -115,7 +147,7 @@ class _HomeScreenCoursesState extends State<HomeScreenCourses> {
             rows: CoursesData.map((courses) {
               return DataRow(
                 cells: <DataCell>[
-                  DataCell(Text(courses['id'].toString() ?? '')),
+                  DataCell(Text(courses['codigo'].toString())),
                   DataCell(Text(courses['nombre'] ?? '')),
                 ],
               );

@@ -5,45 +5,43 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-class EditStudents extends StatefulWidget {
-  const EditStudents({super.key});
+class EditCourses extends StatefulWidget {
+  const EditCourses({super.key});
 
   @override
-  _EditStudentsState createState() => _EditStudentsState();
+  _EditCoursesState createState() => _EditCoursesState();
 }
 
-class _EditStudentsState extends State<EditStudents> {
-  TextEditingController carnetController = TextEditingController();
+class _EditCoursesState extends State<EditCourses> {
+  TextEditingController codigoController = TextEditingController();
   TextEditingController nombreController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController apellidoController = TextEditingController();
-  late List<dynamic> studentData;
+  TextEditingController descripcionController = TextEditingController();
+  late List<dynamic> courseData;
   String errorMessage = '';
   bool isDataLoaded = false;
 
-  void fetchStudentData() async {
-    final carnet = carnetController.text;
-    final estudiante = {
-      'carnet': carnet,
+  void fetchcourseData() async {
+    final codigo = codigoController.text;
+    final curso = {
+      'codigo': codigo,
     };
     const apiUrl =
-        'https://api-android-rivel.onrender.com/getStudentsbyCarnet'; // Reemplaza con la URL de tu API
+        'https://api-android-rivel.onrender.com/getCoursesByCode'; // Reemplaza con la URL de tu API
 
     try {
-      final response = await http.post(Uri.parse(apiUrl), body: estudiante);
+      final response = await http.post(Uri.parse(apiUrl), body: curso);
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
 
         setState(() {
-          studentData = data;
+          courseData = data;
           isDataLoaded = true;
-          emailController.text = studentData[0]['email'] ?? '';
-          nombreController.text = studentData[0]['nombre'] ?? '';
-          apellidoController.text = studentData[0]['apellido'] ?? '';
+          descripcionController.text = courseData[0]['descripcion'] ?? '';
+          nombreController.text = courseData[0]['nombre'] ?? '';
         });
       } else {
         Fluttertoast.showToast(
-          msg: 'Error al encontrar el carnet',
+          msg: 'Error al encontrar el curso',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Colors.red,
@@ -52,7 +50,7 @@ class _EditStudentsState extends State<EditStudents> {
       }
     } catch (error) {
       Fluttertoast.showToast(
-        msg: 'Error al con el API de carnet',
+        msg: 'Error al con el API de curso',
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.red,
@@ -65,17 +63,16 @@ class _EditStudentsState extends State<EditStudents> {
     }
   }
 
-  void updateStudentData() async {
+  void updatecourseData() async {
     // Obtén los datos actualizados desde los controladores nombreController y apellidoController
     final updatedData = {
       'nombre': nombreController.text,
-      'apellido': apellidoController.text,
-      'email': emailController.text,
-      'carnet': carnetController.text
+      'descripcion': descripcionController.text,
+      'codigo': codigoController.text
     };
 
     const apiUrl =
-        'https://api-android-rivel.onrender.com/editStudent'; // Reemplaza con la URL para actualizar datos
+        'https://api-android-rivel.onrender.com/editCourse'; // Reemplaza con la URL para actualizar datos
 
     try {
       final response = await http.post(
@@ -124,12 +121,12 @@ class _EditStudentsState extends State<EditStudents> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
-              controller: carnetController,
-              decoration: const InputDecoration(labelText: 'Número de Carnet'),
+              controller: codigoController,
+              decoration: const InputDecoration(labelText: 'Codigo del Curso'),
             ),
             ElevatedButton(
               onPressed: () {
-                fetchStudentData();
+                fetchcourseData();
               },
               child: const Text('Obtener Datos'),
             ),
@@ -142,16 +139,13 @@ class _EditStudentsState extends State<EditStudents> {
                     decoration: const InputDecoration(labelText: 'Nombre'),
                   ),
                   TextField(
-                    controller: apellidoController,
-                    decoration: const InputDecoration(labelText: 'Apellido'),
-                  ),
-                  TextField(
-                    controller: emailController,
-                    decoration: const InputDecoration(labelText: 'Email'),
+                    controller: descripcionController,
+                    decoration:
+                        const InputDecoration(labelText: 'Descripcion123'),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      updateStudentData();
+                      updatecourseData();
                     },
                     child: const Text('Guardar Cambios'),
                   ),

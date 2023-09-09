@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_v1/screen/students/homeStudents.dart';
 import 'package:flutter_v1/screen/Courses/homeCourses.dart';
 import 'package:flutter_v1/screen/Registers/homeRegisters.dart';
-import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,9 +15,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Home'), centerTitle: true),
-      floatingActionButton: FloatingActionButton(
-        onPressed: fetchUsers,
-      ),
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -83,21 +78,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  void fetchUsers() async {
-    print('fetching users...');
-    const url = 'https://api-android-rivel.onrender.com/getCourses';
-    final urlf = Uri.parse(url);
-    final response = await http.get(urlf);
-    if (response.statusCode != 200) {
-      final json = jsonDecode(response.body);
-      print('Error ${response.statusCode}');
-      print(json['error']); //La info del error
-      return;
-    }
-    final body = response.body;
-    final json = jsonDecode(body);
-    print(json);
   }
 }

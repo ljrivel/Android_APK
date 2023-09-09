@@ -1,7 +1,8 @@
+// ignore_for_file: file_names, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
-import 'dart:convert';
 
 class DeleteStudents extends StatefulWidget {
   const DeleteStudents({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _DeleteStudents extends State<DeleteStudents> {
     return int.tryParse(number) != null;
   }
 
-  Future<void> _guardarEstudiante() async {
+  Future<void> _borrarEstudiante() async {
     final carnet = _carnetController.text;
 
     if (carnet.isNotEmpty) {
@@ -46,7 +47,7 @@ class _DeleteStudents extends State<DeleteStudents> {
             // Cerrar la pantalla actual y volver a la anterior
             Navigator.of(context).pop(true);
           } else {
-            print(response); // Si la solicitud no es exitosa
+            // Si la solicitud no es exitosa
             Fluttertoast.showToast(
               msg: 'Error al eliminar estudiante',
               toastLength: Toast.LENGTH_SHORT,
@@ -56,7 +57,6 @@ class _DeleteStudents extends State<DeleteStudents> {
             );
           }
         } catch (error) {
-          print('Error: $error');
           Fluttertoast.showToast(
             msg: 'Error al conectar con el servidor',
             toastLength: Toast.LENGTH_SHORT,
@@ -102,7 +102,7 @@ class _DeleteStudents extends State<DeleteStudents> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _guardarEstudiante,
+              onPressed: _borrarEstudiante,
               child: const Text('Eliminar'),
             ),
           ],
