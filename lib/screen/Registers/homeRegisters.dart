@@ -104,19 +104,19 @@ class _HomeScreenRegistersState extends State<HomeScreenRegisters> {
           child: DataTable(
             columns: const <DataColumn>[
               DataColumn(
-                label: Text('id'),
-                numeric: true,
-              ),
-              DataColumn(
                 label: Text('Nombre'),
                 numeric: false,
               ),
+              DataColumn(
+                label: Text('Curso'),
+                numeric: false,
+              ),
             ],
-            rows: RegistersData.map((student) {
+            rows: RegistersData.map((registers) {
               return DataRow(
                 cells: <DataCell>[
-                  DataCell(Text(student['id'] ?? '')),
-                  DataCell(Text(student['nombre'] ?? '')),
+                  DataCell(Text(registers['nombre_completo_estudiante'] ?? '')),
+                  DataCell(Text(registers['nombre_curso'] ?? '')),
                 ],
               );
             }).toList(),

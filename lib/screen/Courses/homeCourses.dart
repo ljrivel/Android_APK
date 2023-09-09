@@ -28,6 +28,7 @@ class _HomeScreenCoursesState extends State<HomeScreenCourses> {
         'https://api-android-rivel.onrender.com/getCourses'; // Reemplaza con la URL de tu API
     final response = await http.get(Uri.parse(apiUrl));
     if (response.statusCode == 200) {
+      print(response.body);
       final List<dynamic> data = json.decode(response.body);
       setState(() {
         CoursesData = data.cast<Map<String, dynamic>>();
@@ -105,18 +106,18 @@ class _HomeScreenCoursesState extends State<HomeScreenCourses> {
             columns: const <DataColumn>[
               DataColumn(
                 label: Text('id'),
-                numeric: true,
+                numeric: false,
               ),
               DataColumn(
                 label: Text('Nombre'),
                 numeric: false,
               ),
             ],
-            rows: CoursesData.map((student) {
+            rows: CoursesData.map((courses) {
               return DataRow(
                 cells: <DataCell>[
-                  DataCell(Text(student['id'] ?? '')),
-                  DataCell(Text(student['nombre'] ?? '')),
+                  DataCell(Text(courses['id'].toString() ?? '')),
+                  DataCell(Text(courses['nombre'] ?? '')),
                 ],
               );
             }).toList(),
