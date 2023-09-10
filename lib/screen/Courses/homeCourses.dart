@@ -2,11 +2,12 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_v1/screen/Courses/DeleteCourses.dart';
-import 'package:flutter_v1/screen/Courses/EditCourses.dart';
-import 'package:flutter_v1/screen/Courses/InsertCourses.dart';
+import 'package:RivelAPK/screen/Courses/DeleteCourses.dart';
+import 'package:RivelAPK/screen/Courses/EditCourses.dart';
+import 'package:RivelAPK/screen/Courses/InsertCourses.dart';
 import 'package:http/http.dart' as http;
 
+//Pagina principal de cursos, muestra todos los cursos registrados
 class HomeScreenCourses extends StatefulWidget {
   const HomeScreenCourses({super.key});
 

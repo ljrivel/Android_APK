@@ -12,7 +12,9 @@ class EditStudents extends StatefulWidget {
   _EditStudentsState createState() => _EditStudentsState();
 }
 
+//Editar pide el carnet y despues despliega la informacion
 class _EditStudentsState extends State<EditStudents> {
+  // Controladores para obtener los datos de los campos de texto
   TextEditingController carnetController = TextEditingController();
   TextEditingController nombreController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -21,6 +23,7 @@ class _EditStudentsState extends State<EditStudents> {
   String errorMessage = '';
   bool isDataLoaded = false;
 
+  //Solicita los datos del estudiante
   void fetchStudentData() async {
     final carnet = carnetController.text;
     final estudiante = {

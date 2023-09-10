@@ -10,7 +10,9 @@ class InsertStudents extends StatefulWidget {
   State<InsertStudents> createState() => _InsertStudents();
 }
 
+//Pantalla para insertar estudiantes
 class _InsertStudents extends State<InsertStudents> {
+  // Controladores para obtener los datos de los campos de texto
   final TextEditingController _nombreController = TextEditingController();
   final TextEditingController _apellidoController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();

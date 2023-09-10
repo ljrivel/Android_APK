@@ -10,7 +10,9 @@ class DeleteStudents extends StatefulWidget {
   State<DeleteStudents> createState() => _DeleteStudents();
 }
 
+//Pantalla para eliminar estudiantes
 class _DeleteStudents extends State<DeleteStudents> {
+  // Controladores para obtener los datos de los campos de texto
   final TextEditingController _carnetController = TextEditingController();
 
   bool isNumberValid(String number) {

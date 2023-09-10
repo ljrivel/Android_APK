@@ -1,8 +1,10 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_v1/screen/students/InsertStudents.dart';
-import 'package:flutter_v1/screen/students/DeleteStudents.dart';
-import 'package:flutter_v1/screen/students/EditStudents.dart';
+import 'package:RivelAPK/screen/students/InsertStudents.dart';
+import 'package:RivelAPK/screen/students/DeleteStudents.dart';
+import 'package:RivelAPK/screen/students/EditStudents.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreenStudents extends StatefulWidget {
@@ -12,6 +14,7 @@ class HomeScreenStudents extends StatefulWidget {
   State<HomeScreenStudents> createState() => _HomeScreenStudentsState();
 }
 
+//Pagina principal de estudiantes, muestra todos los estudiantes registrados
 class _HomeScreenStudentsState extends State<HomeScreenStudents> {
   List<Map<String, dynamic>> studentsData =
       []; // Almacena los datos de los estudiantes
@@ -115,7 +118,7 @@ class _HomeScreenStudentsState extends State<HomeScreenStudents> {
                 Navigator.pop(context);
                 final result =
                     await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => EditStudents(),
+                  builder: (context) => const EditStudents(),
                 ));
 
                 // Verificar si se debe recargar los datos

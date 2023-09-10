@@ -2,6 +2,9 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:RivelAPK/screen/Registers/DeleteRegisters.dart';
+import 'package:RivelAPK/screen/Registers/EditRegisters.dart';
+import 'package:RivelAPK/screen/Registers/InsertRegisters.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreenRegisters extends StatefulWidget {
@@ -11,6 +14,7 @@ class HomeScreenRegisters extends StatefulWidget {
   State<HomeScreenRegisters> createState() => _HomeScreenRegistersState();
 }
 
+//Pagina principal de matricula, muestra todas las matriculas registrados
 class _HomeScreenRegistersState extends State<HomeScreenRegisters> {
   List<Map<String, dynamic>> RegistersData =
       []; // Almacena los datos de los estudiantes
@@ -71,9 +75,18 @@ class _HomeScreenRegistersState extends State<HomeScreenRegisters> {
                 Icons.queue,
               ),
               title: const Text('Insertar'),
-              onTap: () {
-                // Acción al seleccionar Inicio
+              onTap: () async {
+                // Acción al seleccionar Configuración
                 Navigator.pop(context);
+                final result =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const InsertRegisters(),
+                ));
+
+                // Verificar si se debe recargar los datos
+                if (result == true) {
+                  await fetchRegistersData(); // Recargar los datos desde el API
+                }
               },
             ),
             ListTile(
@@ -81,17 +94,35 @@ class _HomeScreenRegistersState extends State<HomeScreenRegisters> {
                 Icons.remove,
               ),
               title: const Text('Eliminar'),
-              onTap: () {
+              onTap: () async {
                 // Acción al seleccionar Configuración
                 Navigator.pop(context);
+                final result =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DeleteRegisters(),
+                ));
+
+                // Verificar si se debe recargar los datos
+                if (result == true) {
+                  await fetchRegistersData(); // Recargar los datos desde el API
+                }
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Modificar'),
-              onTap: () {
+              onTap: () async {
                 // Acción al seleccionar Configuración
                 Navigator.pop(context);
+                final result =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const EditRegisters(),
+                ));
+
+                // Verificar si se debe recargar los datos
+                if (result == true) {
+                  await fetchRegistersData(); // Recargar los datos desde el API
+                }
               },
             ),
           ],
@@ -106,6 +137,10 @@ class _HomeScreenRegistersState extends State<HomeScreenRegisters> {
           child: DataTable(
             columns: const <DataColumn>[
               DataColumn(
+                label: Text('ID'),
+                numeric: false,
+              ),
+              DataColumn(
                 label: Text('Nombre'),
                 numeric: false,
               ),
@@ -117,6 +152,7 @@ class _HomeScreenRegistersState extends State<HomeScreenRegisters> {
             rows: RegistersData.map((registers) {
               return DataRow(
                 cells: <DataCell>[
+                  DataCell(Text(registers['id_curso_matriculado'].toString())),
                   DataCell(Text(registers['nombre_completo_estudiante'] ?? '')),
                   DataCell(Text(registers['nombre_curso'] ?? '')),
                 ],

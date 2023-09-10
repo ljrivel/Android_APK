@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_v1/screen/students/homeStudents.dart';
-import 'package:flutter_v1/screen/Courses/homeCourses.dart';
-import 'package:flutter_v1/screen/Registers/homeRegisters.dart';
+import 'package:RivelAPK/screen/students/homeStudents.dart';
+import 'package:RivelAPK/screen/Courses/homeCourses.dart';
+import 'package:RivelAPK/screen/Registers/homeRegisters.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,6 +9,8 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
+//Pagina principal
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
@@ -19,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
+            //Barra de la derecha
             const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
@@ -31,13 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            //Botones de la barra
             ListTile(
               leading: const Icon(
                 Icons.assignment_ind,
               ),
               title: const Text('Students'),
               onTap: () {
-                // Acción al seleccionar Inicio
                 Navigator.pop(context); // Cierra el Drawer
                 Navigator.push(
                     context,
@@ -73,7 +76,40 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context) => const HomeScreenRegisters()));
               },
             ),
-            // Agrega más opciones aquí
+          ],
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Aplicación hecha por Luis Rivel',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24, // Tamaño de fuente grande
+                fontWeight: FontWeight.bold, // Texto en negrita
+                color: Colors.blue, // Color de texto personalizado
+              ),
+            ),
+            Text(
+              'para proyecto de programación',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20, // Tamaño de fuente más grande
+                fontStyle: FontStyle.italic, // Texto en cursiva
+                color: Colors.green, // Otro color de texto personalizado
+              ),
+            ),
+            Text(
+              'hecha en Flutter',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18, // Tamaño de fuente grande
+                color: Colors.red, // Otro color de texto personalizado
+              ),
+            ),
           ],
         ),
       ),
